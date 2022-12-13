@@ -1,0 +1,62 @@
+using System;
+
+namespace GamblingGame
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Set the initial amount of money that the player has
+            int money = 100;
+
+            // Set the initial bet amount
+            int bet = 10;
+
+            // Create a random number generator
+            Random rng = new Random();
+
+            // Keep playing as long as the player has money
+            while (money > 0)
+            {
+                // Print the current amount of money that the player has
+                Console.WriteLine("You have $" + money + ". Enter 'y' to play, 'n' to quit.");
+
+                // Get the player's response
+                string response = Console.ReadLine();
+
+                // Check if the player wants to play
+                if (response == "y")
+                {
+                    // Subtract the bet amount from the player's money
+                    money -= bet;
+
+                    // Generate a random number between 1 and 6
+                    int roll = rng.Next(1, 7);
+
+                    // If the roll is greater than 3, the player wins
+                    if (roll > 3)
+                    {
+                        // Add twice the bet amount to the player's money
+                        money += bet * 2;
+
+                        // Print a win message
+                        Console.WriteLine("You rolled a " + roll + " and won $" + bet * 2 + "!");
+                    }
+                    else
+                    {
+                        // Print a lose message
+                        Console.WriteLine("You rolled a " + roll + " and lost $" + bet + ".");
+                    }
+                }
+                else
+                {
+                    // The player doesn't want to play, so break out of the loop
+                    break;
+                }
+            }
+
+            // Print a goodbye message
+            Console.WriteLine("Thanks for playing! You finished with $" + money + ".");
+        }
+    }
+}
