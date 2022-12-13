@@ -10,7 +10,7 @@ namespace GamblingGame
             int money = 100;
 
             // Set the initial bet amount
-            int bet = 10;
+            int bet = 20;
 
             // Create a random number generator
             Random rng = new Random();
@@ -19,7 +19,7 @@ namespace GamblingGame
             while (money > 0)
             {
                 // Print the current amount of money that the player has
-                Console.WriteLine("You have $" + money + ". Enter 'y' to play, 'n' to quit.");
+                Console.WriteLine("You have $" + money + ". Enter 'y' to play, 'c' to change bet, 'n' to quit.");
 
                 // Get the player's response
                 string response = Console.ReadLine();
@@ -34,7 +34,7 @@ namespace GamblingGame
                     int roll = rng.Next(1, 7);
 
                     // If the roll is greater than 3, the player wins
-                    if (roll > 3)
+                    if (roll > 3 && roll != 6)
                     {
                         // Add twice the bet amount to the player's money
                         money += bet * 2;
@@ -42,10 +42,36 @@ namespace GamblingGame
                         // Print a win message
                         Console.WriteLine("You rolled a " + roll + " and won $" + bet * 2 + "!");
                     }
+                    else if (roll == 6)
+                    {
+                        money += bet * 4;
+                        Console.WriteLine("You rolled a " + roll + " and won $" + bet * 4 + "!");
+                    }                      
                     else
                     {
                         // Print a lose message
                         Console.WriteLine("You rolled a " + roll + " and lost $" + bet + ".");
+                    }
+                }
+                else if (response == "c")
+                {
+                        Console.WriteLine("How many $ do you want to lose? >:)");
+                        int newbet = Convert.ToInt32(Console.ReadLine());
+                    if (newbet > 0)
+                    {
+                        bet = newbet;
+                    }
+                    else if (newbet > money)
+                    {
+                        Console.WriteLine("Your bet is way higher then your current balance.. You going to continue with your previous bet.");
+                    }
+                    else if (newbet == money)
+                    {
+                        Console.WriteLine("WOW all-in?! You're Brave!");
+                    }
+                    else if (newbet <= 0)
+                    {
+                        Console.WriteLine("You cant play without bet. You going to continue with your previous bet.");
                     }
                 }
                 else
@@ -58,5 +84,6 @@ namespace GamblingGame
             // Print a goodbye message
             Console.WriteLine("Thanks for playing! You finished with $" + money + ".");
         }
+
     }
 }
